@@ -7,10 +7,21 @@ This project is primarily built for handling STS and TTS work of Lord
 We have various modules designed for specific use cases and the main focus is on STS and TTS works
 
 2. Installation 
---Yet to get to github
+git init
+git config --global user.name "Swamiseva"
+git config --global user.email "shridattaswamiseva@gmail.com"
+git clone https://github.com/Swamiseva/st_work.git
 
 3. Usage
---Not yet mature
+To ignore a specific file to be untracked
+    add the file name to .gitignore
+    add commit and push it
+To push your changes to the repository
+    git status
+    git add -f * (to add all files use *)
+    git commit -m "commit message"
+    git push
+        username = Swamiseva
 
 4. Features
 a. Split the video given timestamps
