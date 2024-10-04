@@ -22,9 +22,11 @@ To push your changes to the repository
     git commit -m "commit message"
     git push
         username = Swamiseva
+        pwd = Personal Access Token
 
 4. Features
-a. Split the video given timestamps
+a. Split the video - with and without compression
+b. Convert video to audio
 
 5. Requirements
 Run the below command to install all the requirements -->
