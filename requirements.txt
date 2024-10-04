@@ -1,0 +1,7 @@
+# This file is used to install the requirements for the project. 
+# Note that the versions are not given so that the latest version can be installed
+# Run the below to install all the requirements
+# pip install -r requirements.txt
+moviepy
+ffmpeg
+# openai-whisper

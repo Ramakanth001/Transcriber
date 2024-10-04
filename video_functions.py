@@ -2,11 +2,13 @@ from moviepy.video.io.VideoFileClip import VideoFileClip
 import ffmpeg
 import moviepy.editor as mp
 import concurrent.futures
+import whisper
 
 def format_duration(seconds):
     hours = int(seconds // 3600)
     minutes = int((seconds % 3600) // 60)
     seconds = int(seconds % 60)
+    milliseconds = int((seconds * 1000) % 1000)
     return f"{hours:02}:{minutes:02}:{seconds:02}"
 
 def get_video_duration(video_file):
@@ -108,6 +110,34 @@ def extract_hd_audio(input_video, output_audio, start_time, end_time):
         future = executor.submit(audio_extraction)
         future.result()  # Wait for the extraction to complete
 
+def transcribe_audio_with_srt(audio_file):
+
+    # Load the Whisper model 
+    # large - 1.55 billion parameters (tiny, base, small, and medium are also available)
+    model = whisper.load_model("large") 
+    
+    result = model.transcribe(audio_file)
+    
+    # Create the SRT file
+    srt_file = audio_file.replace(".wav", ".srt")
+    
+    with open(srt_file, "w") as srt:
+        for idx, segment in enumerate(result['segments']):
+            start = segment['start']
+            end = segment['end']
+            text = segment['text']
+            
+            # Format timestamps to SRT style (HH:MM:SS,MSS)
+            start_time = format_duration(start)
+            end_time = format_duration(end)
+            
+            # Write to SRT file
+            srt.write(f"{idx + 1}\n")
+            srt.write(f"{start_time} --> {end_time}\n")
+            srt.write(f"{text}\n\n")
+
+    return srt_file
+
 def driver_code():
     print("****************************************************************")
 
@@ -154,12 +184,16 @@ def driver_code():
         # If end time is not specified then the total duration will be considered as the end time by default
         end_time = input("Enter end time (HH:MM:SS): \n'Hit ENTER button if you want to process till the end\n")
 
-        output_audio = input("Enter output video file name:\n")
-        
-        # hard-coded Output video file name
-        output_audio = "Swami_audio_1_3.m4a"
+        output_audio = input("Enter output audio file name:\n")
+
+        if not output_audio:
+
+            # hard-coded Output video file name
+            output_audio = "Swami_audio_1_3.m4a"
 
         extract_hd_audio(input_video, output_audio, start_time, end_time)
 
 if __name__ == "__main__":
-    driver_code()
+    # driver_code()
+    audio_file = "Swami_audio_1_3.m4a"
+    srt_file = transcribe_audio_with_srt(audio_file)
