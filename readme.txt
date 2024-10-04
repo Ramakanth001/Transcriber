@@ -23,6 +23,9 @@ To push your changes to the repository
     git push
         username = Swamiseva
         pwd = Personal Access Token
+To check the whisper modules
+    cd ~/.cache/whisper
+
 
 4. Features
 a. Split the video - with and without compression
@@ -31,13 +34,15 @@ b. Convert video to audio
 5. Requirements
 Run the below command to install all the requirements -->
     pip install -r requirements.txt
-Install ffmpeg 
+Install ffmpeg (on cmd)
     a. Go to https://www.gyan.dev/ffmpeg/builds/
     b. select in master build ffmpeg-git-full.7z
     c. Download it, extract it, and note the path of bin folder which contains ffmpeg.exe. ex - "C:\ffmpeg\ffmpeg-2024-09-26-git-f43916e217-full_build\bin"
     d. Add it to path (environment vairable) either manually or using cmd command. Via this command in cmd-> 
         {setx /m PATH "C:\ffmpeg\ffmpeg-2024-09-26-git-f43916e217-full_build\bin\;%PATH%"}
     e. Restart your pc and execute "where ffmpeg" to validate the path of ffmpeg (indicator of Installation)
+Install ffmpeg (on WSL)
+    sudo apt install ffmpeg (needs additional 250 MB)
     
 6. Contact
 Swami

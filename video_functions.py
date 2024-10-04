@@ -109,17 +109,17 @@ def extract_hd_audio(input_video, output_audio, start_time, end_time):
     with concurrent.futures.ThreadPoolExecutor() as executor:
         future = executor.submit(audio_extraction)
         future.result()  # Wait for the extraction to complete
+import os
 
 def transcribe_audio_with_srt(audio_file):
 
     # Load the Whisper model 
-    # large - 1.55 billion parameters (tiny, base, small, and medium are also available)
-    model = whisper.load_model("large") 
+    model = whisper.load_model("medium") 
     
     result = model.transcribe(audio_file)
     
     # Create the SRT file
-    srt_file = audio_file.replace(".wav", ".srt")
+    srt_file = os.path.splitext(audio_file)[0] + ".srt"
     
     with open(srt_file, "w") as srt:
         for idx, segment in enumerate(result['segments']):
@@ -137,6 +137,7 @@ def transcribe_audio_with_srt(audio_file):
             srt.write(f"{text}\n\n")
 
     return srt_file
+
 
 def driver_code():
     print("****************************************************************")
@@ -197,3 +198,7 @@ if __name__ == "__main__":
     # driver_code()
     audio_file = "Swami_audio_1_3.m4a"
     srt_file = transcribe_audio_with_srt(audio_file)
+
+    TODO:
+    1. Enable GPU processing
+    2. Language wide parameters
