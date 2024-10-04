@@ -3,5 +3,7 @@
 # Run the below to install all the requirements
 # pip install -r requirements.txt
 moviepy
+# If facing issues, run the following "sudo apt install ffmpeg"
 ffmpeg
-# openai-whisper
+#below one takes a lot of time and space to install (1.5 Gb space and around 25 mins to install)
+openai-whisper
