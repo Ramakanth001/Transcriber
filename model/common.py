@@ -1,4 +1,5 @@
-
+from moviepy.video.io.VideoFileClip import VideoFileClip
+import torch
 
 def format_duration(seconds):
     hours = int(seconds // 3600)
@@ -24,3 +25,9 @@ def get_video_duration(video_file):
         print(f"An error occurred: {e}")
         return None
 
+def check_gpu():
+    print("CUDA Available: ", torch.cuda.is_available())
+    if torch.cuda.is_available():
+        print("GPU Name: ", torch.cuda.get_device_name(0))
+        print("Memory Allocated: ", torch.cuda.memory_allocated(0)/1024**3, "GB")
+        print("Total Memory: ", torch.cuda.get_device_properties(0).total_memory/1024**3, "GB")

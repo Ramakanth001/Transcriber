@@ -1,9 +1,5 @@
 from moviepy.video.io.VideoFileClip import VideoFileClip
 import ffmpeg
-import moviepy.editor as mp
-import concurrent.futures
-import whisper
-import os
 
 def split_and_compress_video(input_file, start_time, end_time, output_file):
     try:
