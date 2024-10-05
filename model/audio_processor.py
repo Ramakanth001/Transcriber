@@ -1,4 +1,5 @@
-
+import moviepy.editor as mp
+import concurrent.futures
 
 def extract_hd_audio(input_video, output_audio, start_time, end_time):
     # Function to extract audio
@@ -16,7 +17,8 @@ def extract_hd_audio(input_video, output_audio, start_time, end_time):
                                             ffmpeg_params=["-b:a", "320k", "-ar", "44100"])
             elif output_audio.endswith('.wav'):
                 audio_clip.write_audiofile(output_audio, codec='pcm_s16le', 
-                                            ffmpeg_params=["-ar", "44100"])  # No need for bitrate since WAV is uncompressed
+                                            ffmpeg_params=["-ar", "44100"])  
+                # No need for bitrate since WAV is uncompressed
             else:
                 raise ValueError("Unsupported file extension. Use .m4a or .wav.")
 
@@ -34,4 +36,5 @@ def extract_hd_audio(input_video, output_audio, start_time, end_time):
     # Use a thread pool to run the audio extraction
     with concurrent.futures.ThreadPoolExecutor() as executor:
         future = executor.submit(audio_extraction)
-        future.result()  # Wait for the extraction to complete
+        future.result()  
+        # Wait for the extraction to complete
