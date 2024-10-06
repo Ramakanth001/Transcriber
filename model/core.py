@@ -1,13 +1,13 @@
-import common
-import video_processor
-import srt_processor
-from audio_processor import extract_hd_audio
+import processors.common as common
+import processors.video_processor as video_processor
+import processors.srt_processor as srt_processor
+from processors.audio_processor import extract_hd_audio
 
 
 def driver_code():
     print("****************************************************************")
 
-    main_choice = int(input("Choose one of the following:\n1. Split the video\n2. Convert video to audio\n"))
+    main_choice = int(input("Choose one of the following:\n1. Split the video\n2. Convert video to audio\n3. Convert audio to SRT and RAW files\n"))
 
     if main_choice == 1 :
 
@@ -71,19 +71,29 @@ def driver_code():
 
         extract_hd_audio(input_video, output_audio, start_time, end_time)
 
-if __name__ == "__main__":
-    # driver_code()
-    audio_file = "files/Swami_audio_1_3.m4a"
-    
-    srt_file = srt_processor.transcribe_audio_with_srt(audio_file)
-    print(srt_file)
 
-    raw_srt_file = srt_processor.srt_to_raw_transcript(srt_file)
-    print(raw_srt_file)
+    if main_choice == 3:
+
+        input_audio = input("Give the audio file path:\n")
+
+        #hard coded for testing
+        input_audio = "files/Swami_audio_1_3.m4a"
+    
+        srt_file = srt_processor.transcribe_audio_with_srt(input_audio)
+        print(srt_file)
+
+        raw_srt_file = srt_processor.srt_to_raw_transcript(srt_file)
+        print(raw_srt_file)
+
+if __name__ == "__main__":
+    driver_code()
+
 
     # TODO:
     # 2. get_video_duration - use and enable end times and start times everywhere
     # 3. Language wide parameters
-    
+    # 4. If video is given directlt srt and raw should comw
+    # 5. Timestamp for audio to srt conversion feature
+
     # GOAL:
     # AI Model -> Question - relevant answer - generate speech - generate video (advanced work)

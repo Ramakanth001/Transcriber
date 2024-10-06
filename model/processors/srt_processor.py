@@ -1,4 +1,4 @@
-from common import format_duration
+from .common import format_duration
 import whisper
 import os
 
