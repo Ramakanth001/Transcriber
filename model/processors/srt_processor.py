@@ -5,7 +5,8 @@ import os
 def transcribe_audio_with_srt(audio_file):
 
     # Load the Whisper model 
-    model = whisper.load_model("medium").to("cuda")
+    # model = whisper.load_model("medium").to("cuda")
+    model = whisper.load_model("large").to("cuda")
     
     result = model.transcribe(audio_file, language="en")
 
