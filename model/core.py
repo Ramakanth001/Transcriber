@@ -16,7 +16,7 @@ def driver_code():
         input_video = input("Give the video path:\n")
 
         #hard coded for testing
-        input_video = "/mnt/c/Users/Ramakanth/Downloads/Krishna.mkv"
+        input_video = "/mnt/e/projects/Krishna.mkv"
 
         # If start time is not specified then then zeroth second will be considered as the start time by default
         start_time = input("Enter start time (HH:MM:SS): \n'Hit ENTER button if you want to process from the beginning\n")
@@ -48,7 +48,7 @@ def driver_code():
         input_video = input("Give the video path:\n")
 
         #hard coded for testing
-        input_video = "/mnt/c/Users/Ramakanth/Downloads/Krishna.mkv"
+        input_video = "/mnt/e/projects/Krishna.mkv"
 
         # If start time is not specified then then zeroth second will be considered as the start time by default
         start_time = input("Enter start time (HH:MM:SS): \n'Hit ENTER button if you want to process from the beginning\n")
@@ -77,13 +77,14 @@ def driver_code():
         input_audio = input("Give the audio file path:\n")
 
         #hard coded for testing
-        input_audio = "files/Swami_audio_1_3.m4a"
+        input_audio = "files/sample_3/Swami_audio_sample_3_1-10-00_1-23-25.m4a"
     
         srt_file = srt_processor.transcribe_audio_with_srt(input_audio)
         print(srt_file)
 
         raw_srt_file = srt_processor.srt_to_raw_transcript(srt_file)
         print(raw_srt_file)
+
 
 if __name__ == "__main__":
     driver_code()
@@ -94,6 +95,7 @@ if __name__ == "__main__":
     # 3. Language wide parameters
     # 4. If video is given directlt srt and raw should comw
     # 5. Timestamp for audio to srt conversion feature
+    # 6. Audio splitting feature
 
     # GOAL:
     # AI Model -> Question - relevant answer - generate speech - generate video (advanced work)
