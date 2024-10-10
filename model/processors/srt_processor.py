@@ -2,11 +2,14 @@ from .common import format_duration
 import whisper
 import os
 
+# Load the Whisper model 
+model_size="medium"
+# model_size="large"
+
 def transcribe_audio_with_srt(audio_file):
 
-    # Load the Whisper model 
-    # model = whisper.load_model("medium").to("cuda")
-    model = whisper.load_model("large").to("cuda")
+    model = whisper.load_model(model_size).to("cuda")
+    # model = whisper.load_model("large").to("cuda")
     
     result = model.transcribe(audio_file, language="en")
 
@@ -14,7 +17,7 @@ def transcribe_audio_with_srt(audio_file):
 
     
     # Create the SRT file
-    srt_file = os.path.splitext(audio_file)[0] + ".srt"
+    srt_file = os.path.splitext(audio_file)[0] + "_" + model_size + ".srt"
     
     with open(srt_file, "w") as srt:
         for idx, segment in enumerate(result['segments']):
@@ -37,7 +40,7 @@ def transcribe_audio_with_srt(audio_file):
 def srt_to_raw_transcript(srt_file_path):
     # Determine the output file path
     base_name = os.path.splitext(srt_file_path)[0]  # Get the base name without extension
-    output_file_path = f"{base_name}_raw_transcript.txt"  # Append '_raw_transcript' to the base name
+    output_file_path = f"{base_name}_transcript.txt"  # Append '_raw_transcript' to the base name
 
     with open(srt_file_path, 'r') as srt_file:
         lines = srt_file.readlines()

@@ -43,6 +43,9 @@ Install ffmpeg (on cmd)
     e. Restart your pc and execute "where ffmpeg" to validate the path of ffmpeg (indicator of Installation)
 Install ffmpeg (on WSL)
     sudo apt install ffmpeg (needs additional 250 MB)
-    
-6. Contact
+
+6. Additional tools used
+https://gotranscript.com/text-compare#diff -> To check accuracy of original text and model output
+
+7. Contact
 Swami
