@@ -1,13 +1,13 @@
 import processors.common as common
 import processors.video_processor as video_processor
 import processors.srt_processor as srt_processor
-from processors.audio_processor import extract_hd_audio
-
+import processors.audio_processor as audio_processor
+# import fine_tuning.fine_tune as fine_tune
 
 def driver_code():
     print("****************************************************************")
 
-    main_choice = int(input("Choose one of the following:\n1. Split the video\n2. Convert video to audio\n3. Convert audio to SRT and RAW files\n"))
+    main_choice = int(input("Choose one of the following:\n1. Split the video\n2. Split audio\n3. Convert video to audio\n4. Convert audio to SRT and RAW files\n"))
 
     if main_choice == 1 :
 
@@ -43,7 +43,16 @@ def driver_code():
             print("Splitting the video")
             video_processor.timestamp_video_split(input_video, start_time, end_time, output_video)
 
-    if main_choice == 2:
+    if main_choice == 2 :    
+        # Example usage:
+        audio_file = "/mnt/e/projects/TG-1_Full.wav"
+        timestamps = [(0, 300), (300, 600), (600, 1200), (1200, 1800), (1800, 2271) ]  
+        # Example timestamps in seconds
+        output_folder = "output_segments"
+        audio_processor.split_audio(audio_file, timestamps, output_folder)
+
+
+    if main_choice == 3:
 
         input_video = input("Give the video path:\n")
 
@@ -69,10 +78,10 @@ def driver_code():
             # hard-coded Output video file name
             output_audio = "Swami_audio_1_3.m4a"
 
-        extract_hd_audio(input_video, output_audio, start_time, end_time)
+        audio_processor.extract_hd_audio(input_video, output_audio, start_time, end_time)
 
 
-    if main_choice == 3:
+    if main_choice == 4:
 
         input_audio = input("Give the audio file path:\n")
 
@@ -88,6 +97,7 @@ def driver_code():
 
 if __name__ == "__main__":
     driver_code()
+    # fine_tune.fine_tune_model()
 
 
     # TODO:

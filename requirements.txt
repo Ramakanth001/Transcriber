@@ -7,3 +7,6 @@ moviepy
 ffmpeg
 #below one takes a lot of time and space to install (1.5 Gb space and around 25 mins to install)
 openai-whisper
+datasets
+transformers
+scikit-learn

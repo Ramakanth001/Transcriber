@@ -1,5 +1,6 @@
 import moviepy.editor as mp
 import concurrent.futures
+import os
 
 def extract_hd_audio(input_video, output_audio, start_time, end_time):
     # Function to extract audio
@@ -38,3 +39,38 @@ def extract_hd_audio(input_video, output_audio, start_time, end_time):
         future = executor.submit(audio_extraction)
         future.result()  
         # Wait for the extraction to complete
+
+def split_audio(audio_file, timestamps, output_folder):
+    """
+    Splits an audio file based on given timestamps using moviepy.
+    
+    Parameters:
+    - audio_file (str): Path to the audio file (e.g., "input_audio.wav").
+    - timestamps (list of tuples): List of (start, end) tuples where each timestamp is in seconds.
+    - output_folder (str): Path to the folder where the split files will be saved.
+    
+    Example:
+    timestamps = [(0, 60), (120, 180)]  # Split from 0s to 60s and 120s to 180s
+    """
+    # Load the audio file using moviepy
+    audio = mp.AudioFileClip(audio_file)
+    
+    # Ensure output folder exists
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
+    # Iterate over the timestamps and split the audio
+    for i, (start_time, end_time) in enumerate(timestamps):
+        # Extract the segment using subclip
+        segment = audio.subclip(start_time, end_time)
+
+        # Define the output file name
+        output_file = os.path.join(output_folder, f"segment_{i + 1}.wav")
+
+        # Write the audio segment to the output file
+        segment.write_audiofile(output_file, codec='pcm_s16le')
+        print(f"Segment {i + 1} saved as {output_file}")
+
+    # Close the audio clip to free resources
+    audio.close()
+
