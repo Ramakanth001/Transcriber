@@ -1,0 +1,1 @@
+Actually, these 2 files take a folder as inut and then they match the segment-x.wav and segment-x_raw.txt files and then prepare data set accordingly. Due to risk of heavy fine tuning and non reliance on the raw files instead of srt, we are proceeding with generating data sets individually per segment.

@@ -45,9 +45,3 @@ def timestamp_video_split(input_video, start_time, end_time, output_video):
 
     except Exception as e:
         print(f"Error: {e}")
-
-
-
-
-
-
