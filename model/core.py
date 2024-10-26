@@ -2,12 +2,15 @@ import processors.common as common
 import processors.video_processor as video_processor
 import processors.srt_processor as srt_processor
 import processors.audio_processor as audio_processor
+import fine_tuning.data_set_generator as data_set_generator
+import fine_tuning.fine_tune as fine_tuner
+
 # import fine_tuning.fine_tune as fine_tune
 
 def driver_code():
     print("****************************************************************")
 
-    main_choice = int(input("Choose one of the following:\n1. Split the video\n2. Split audio\n3. Convert video to audio\n4. Convert audio to SRT and RAW files\n"))
+    main_choice = int(input("Choose one of the following:\n1. Split the video\n2. Split audio\n3. Convert video to audio\n4. Convert audio to SRT and RAW files\n5. Generate Dummy SRT file as per audio\n6. Fine tune the model with custom audio and SRT\n"))
 
     if main_choice == 1 :
 
@@ -94,6 +97,37 @@ def driver_code():
         raw_srt_file = srt_processor.srt_to_raw_transcript(srt_file)
         print(raw_srt_file)
 
+    if main_choice == 5:
+
+        audio_file_path = input("\nGive the audio file path:\n")
+
+        #hard coded for testing
+        audio_file_path = "training_data/TG-1/segment_1.wav"
+
+        segment_duration = input("Enter segment duration in seconds:\n(Hit enter for default segment duration - 10 seconds)\n")
+
+        if not segment_duration:
+            segment_duration = 10
+
+        srt_processor.generate_dummy_srt(audio_file_path, segment_duration)
+
+    if main_choice == 6:
+
+        audio_file_path = input("\nGive the audio file path:\n")
+        
+        # Paths to the audio file and its corresponding SRT file
+        audio_file_path = "training_data/TG-1/segment_1.wav"
+
+        srt_file_path = input("\nGive the SRT file path:\n")
+        srt_file_path = "training_data/TG-1/segment_1.srt"
+
+        # Prepare datasets with a random 80-20 train-validation split
+        train_dataset, val_dataset = data_set_generator.prepare_data_with_single_file(audio_file_path, srt_file_path, test_size=0.2)
+
+        fine_tuned_model_dir = fine_tuner(train_dataset, val_dataset, output_dir="fine_tuned_model")
+
+        print(f"Fine-tuned model saved at: {fine_tuned_model_dir}")
+
 
 if __name__ == "__main__":
     driver_code()
@@ -101,7 +135,6 @@ if __name__ == "__main__":
 
 
     # TODO:
-    # 2. get_video_duration - use and enable end times and start times everywhere
     # 3. Language wide parameters
     # 4. If video is given directlt srt and raw should comw
     # 5. Timestamp for audio to srt conversion feature

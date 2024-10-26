@@ -1,6 +1,7 @@
 from transformers import WhisperForConditionalGeneration, WhisperProcessor, Seq2SeqTrainer, Seq2SeqTrainingArguments
+import data_set_generator
 
-# The below is a supervised learning model
+#The below is Supervised learning model
 
 def fine_tune_model(train_dataset, val_dataset, output_dir="fine_tuned_model"):
     # Load a pre-trained Whisper model and processor
@@ -10,6 +11,7 @@ def fine_tune_model(train_dataset, val_dataset, output_dir="fine_tuned_model"):
     # Set up training arguments
     training_args = Seq2SeqTrainingArguments(
         output_dir=output_dir,             # Directory to store model checkpoints
+        # per_device_train_batch_size=2,     # Adjust based on your GPU capacity
         per_device_train_batch_size=1,     # Adjust based on your GPU capacity
         per_device_eval_batch_size=2,
         num_train_epochs=3,                # Number of epochs
@@ -39,3 +41,10 @@ def fine_tune_model(train_dataset, val_dataset, output_dir="fine_tuned_model"):
     processor.save_pretrained(output_dir)
 
     return output_dir
+
+
+# Path to the folder containing all the audio and SRT files
+folder_path = "path/to/your/folder"
+
+# Prepare datasets with a random 80-20 train-validation split
+train_dataset, val_dataset = data_set_generator.prepare_data_with_split(folder_path, test_size=0.2)

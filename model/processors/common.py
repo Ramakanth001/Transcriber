@@ -1,5 +1,6 @@
 from moviepy.video.io.VideoFileClip import VideoFileClip
 import torch
+from pydub import AudioSegment
 
 def format_duration(seconds):
     hours = int(seconds // 3600)
@@ -24,6 +25,11 @@ def get_video_duration(video_file):
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
+    
+def get_audio_duration(audio_file):
+    """Get the duration of the audio in seconds."""
+    audio = AudioSegment.from_file(audio_file)
+    return len(audio) / 1000  # Convert from milliseconds to seconds
 
 def check_gpu():
     print("CUDA Available: ", torch.cuda.is_available())
