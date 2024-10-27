@@ -1,11 +1,17 @@
-from transformers import WhisperForConditionalGeneration, WhisperProcessor, Seq2SeqTrainer, Seq2SeqTrainingArguments
-
-# The below is a supervised learning model
+from transformers import WhisperForConditionalGeneration, WhisperProcessor, Seq2SeqTrainer, Seq2SeqTrainingArguments, DataCollatorForSeq2Seq
 
 def fine_tune_model(train_dataset, val_dataset, output_dir="fine_tuned_model"):
     # Load a pre-trained Whisper model and processor
     model = WhisperForConditionalGeneration.from_pretrained("openai/whisper-medium").to("cuda")
     processor = WhisperProcessor.from_pretrained("openai/whisper-medium")
+
+    # Prepare data collator for dynamic padding
+    data_collator = DataCollatorForSeq2Seq(
+        tokenizer=processor.tokenizer,
+        model=model,
+        padding=True,
+        return_tensors="pt"
+    )
 
     # Set up training arguments
     training_args = Seq2SeqTrainingArguments(
@@ -19,7 +25,8 @@ def fine_tune_model(train_dataset, val_dataset, output_dir="fine_tuned_model"):
         eval_steps=500,
         save_total_limit=2,                # Only keep the last 2 checkpoints
         learning_rate=5e-5,
-        logging_dir=f"{output_dir}/logs"
+        logging_dir=f"{output_dir}/logs",
+        report_to="tensorboard"            # Log training progress to TensorBoard
     )
 
     # Create trainer instance
@@ -29,12 +36,13 @@ def fine_tune_model(train_dataset, val_dataset, output_dir="fine_tuned_model"):
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
         tokenizer=processor.tokenizer,
+        data_collator=data_collator
     )
 
     # Fine-tune the model
     trainer.train()
 
-    # Save the fine-tuned model
+    # Save the fine-tuned model and processor
     trainer.save_model(output_dir)
     processor.save_pretrained(output_dir)
 

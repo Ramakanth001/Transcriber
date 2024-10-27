@@ -3,7 +3,7 @@ import processors.video_processor as video_processor
 import processors.srt_processor as srt_processor
 import processors.audio_processor as audio_processor
 import fine_tuning.data_set_generator as data_set_generator
-import fine_tuning.fine_tune as fine_tuner
+from fine_tuning.fine_tune import fine_tune_model
 
 # import fine_tuning.fine_tune as fine_tune
 
@@ -116,15 +116,15 @@ def driver_code():
         audio_file_path = input("\nGive the audio file path:\n")
         
         # Paths to the audio file and its corresponding SRT file
-        audio_file_path = "training_data/TG-1/segment_1.wav"
+        audio_file_path = "segment_1.wav"
 
         srt_file_path = input("\nGive the SRT file path:\n")
-        srt_file_path = "training_data/TG-1/segment_1.srt"
+        srt_file_path = "segment_1.srt"
 
         # Prepare datasets with a random 80-20 train-validation split
         train_dataset, val_dataset = data_set_generator.prepare_data_with_single_file(audio_file_path, srt_file_path, test_size=0.2)
 
-        fine_tuned_model_dir = fine_tuner(train_dataset, val_dataset, output_dir="fine_tuned_model")
+        fine_tuned_model_dir = fine_tune_model(train_dataset, val_dataset, output_dir="fine_tuned_model")
 
         print(f"Fine-tuned model saved at: {fine_tuned_model_dir}")
 
