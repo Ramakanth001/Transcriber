@@ -40,28 +40,29 @@ def transcribe_audio_with_srt(audio_file):
 
     return srt_file
 
-
 def srt_to_raw_transcript(srt_file_path):
     # Determine the output file path
     base_name = os.path.splitext(srt_file_path)[0]  # Get the base name without extension
-    output_file_path = f"{base_name}_transcript.txt"  # Append '_raw_transcript' to the base name
+    output_file_path = f"{base_name}_transcript.txt"  # Append '_transcript' to the base name
 
     with open(srt_file_path, 'r') as srt_file:
         lines = srt_file.readlines()
 
     # Prepare to collect the transcript lines
-    transcript_lines = []
+    transcript_text = []  # Store lines to join later
 
     for line in lines:
         # Remove line numbers and timestamps
         if line.strip().isdigit() or "-->" in line or line.strip() == "":
             continue  # Skip numbers, timestamps, and empty lines
-        transcript_lines.append(line.strip())  # Add the text line
+        transcript_text.append(line.strip())  # Add the text line
+
+    # Join lines with a period and a space
+    transcript_output = ". ".join(transcript_text) + "."  # Add final period at end
 
     # Write the transcript to the output file
     with open(output_file_path, 'w') as output_file:
-        for transcript_line in transcript_lines:
-            output_file.write(transcript_line + "\n")
+        output_file.write(transcript_output)
 
     print(f"Transcript saved to: {output_file_path}")  # Print confirmation message
 
@@ -152,10 +153,4 @@ def generate_dummy_srt(audio_file, segment_duration):
         file.writelines(srt_content)
     
     print(f"SRT file generated at: {srt_output_path}")
-
-# Example Usage
-audio_file_path = "path/to/your/audio.wav"  # Path to your audio file
-segment_duration = 10  # Duration of each segment in seconds
-  # Output SRT file path
-
 
