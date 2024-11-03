@@ -2,6 +2,7 @@
 # Note that the versions are not given so that the latest version can be downloaded
 # Run the below to install all the requirements
 # pip install -r requirements.txt
+
 moviepy
 # If facing issues, run the following "sudo apt install ffmpeg"
 ffmpeg
@@ -9,4 +10,6 @@ ffmpeg
 openai-whisper
 datasets
 transformers
-scikit-learn
+scikit-learn #50MB
+pydub
+tensorboard
