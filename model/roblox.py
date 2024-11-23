@@ -125,7 +125,7 @@ def roblox_driver():
 
 def resumed():
     # srt_folder_path = "Gurupurnima_audio_output_audio_segment_files_srt"
-    combined_srt_file = "combined_srt_file.srt"
+    combined_srt_file = "Krishnastami-2-combined_srt_file.srt"
     # srt_sticher.stitch_srt_files(srt_folder_path, combined_srt_file)
     # print(f"SRT files have been combined into {combined_srt_file}")
 
