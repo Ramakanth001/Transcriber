@@ -48,29 +48,28 @@ def driver_code():
 
     if main_choice == 2 :    
         # Example usage:
-        audio_file = "/mnt/e/projects/TG-1_Full.wav"
-        timestamps = [(0, 300), (300, 600), (600, 1200), (1200, 1800), (1800, 2271) ]  
-        # Example timestamps in seconds
-        output_folder = "output_segments"
-        audio_processor.split_audio(audio_file, timestamps, output_folder)
+        # audio_file = "/mnt/e/projects/TG-1_Full.wav"
+        audio_file = "Swami_audio.m4a"
+        output_folder = f"{audio_file.split('.')[0]}_output_audio_segment_files"
+        audio_duration = common.get_audio_duration(audio_file)
+        print(audio_duration), type(audio_duration)
+        frequency = int(input("Enter Frequency to split the audio file into segemnts:\n"))
+        timestamps = audio_processor.timestamp_splitter(frequency,audio_duration)
+        print("timestamps for reference:\n",timestamps)
+        audio_processor.split_audio_based_on_timestamps_ffmpeg(audio_file, timestamps, output_folder)
+        print("Segmented audio files are stored in the following folder:\n",output_folder)
 
-
+        
     if main_choice == 3:
 
         input_video = input("Give the video path:\n")
 
         #hard coded for testing
         input_video = "/mnt/e/projects/Krishna.mkv"
-
-        # If start time is not specified then then zeroth second will be considered as the start time by default
         start_time = input("Enter start time (HH:MM:SS): \n'Hit ENTER button if you want to process from the beginning\n")
-
         if not start_time:
-            start_time = "03:13:00"
-
-        # If end time is not specified then the total duration will be considered as the end time by default
+            start_time = "00:00:00"
         end_time = input("Enter end time (HH:MM:SS): \n'Hit ENTER button if you want to process till the end\n")
-
         if not end_time:
             end_time = common.get_video_duration(input_video)
             
@@ -79,9 +78,9 @@ def driver_code():
         if not output_audio:
 
             # hard-coded Output video file name
-            output_audio = "Swami_audio_1_3.m4a"
+            output_audio = "Swami_audio.m4a"
 
-        audio_processor.extract_hd_audio(input_video, output_audio, start_time, end_time)
+        audio_processor.extract_hd_audio_from_video(input_video, output_audio, start_time, end_time)
 
 
     if main_choice == 4:
@@ -89,7 +88,7 @@ def driver_code():
         input_audio = input("Give the audio file path:\n")
 
         #hard coded for testing
-        input_audio = "Lord_1_last_hour.m4a"
+        input_audio = "Swami_audio.m4a"
     
         srt_file = srt_processor.transcribe_audio_with_srt(input_audio)
         print(srt_file)
