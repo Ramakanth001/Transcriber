@@ -13,3 +13,4 @@ transformers
 scikit-learn #50MB
 pydub
 tensorboard
+ffmpeg-python

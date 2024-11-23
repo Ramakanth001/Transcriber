@@ -6,7 +6,6 @@ def format_duration(seconds):
     hours = int(seconds // 3600)
     minutes = int((seconds % 3600) // 60)
     seconds = int(seconds % 60)
-    milliseconds = int((seconds * 1000) % 1000)
     return f"{hours:02}:{minutes:02}:{seconds:02}"
 
 def get_video_duration(video_file):
@@ -29,7 +28,8 @@ def get_video_duration(video_file):
 def get_audio_duration(audio_file):
     """Get the duration of the audio in seconds."""
     audio = AudioSegment.from_file(audio_file)
-    return len(audio) / 1000  # Convert from milliseconds to seconds
+    duration_in_seconds = len(audio) / 1000  # Convert from milliseconds to seconds
+    return format_duration(duration_in_seconds)
 
 def check_gpu():
     print("CUDA Available: ", torch.cuda.is_available())
