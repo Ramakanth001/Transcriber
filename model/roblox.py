@@ -116,9 +116,12 @@ def roblox_driver():
 
     combined_srt_file = "combined_srt_file.srt"
     srt_sticher.stitch_srt_files(srt_folder_path, combined_srt_file)
-    print(f"SRT files have been combined into {combined_srt_file}.")
+    print(f"SRT files have been combined into {combined_srt_file}")
 
     print("All audio files processed successfully.")
+
+    raw_srt_file = srt_processor.srt_to_raw_transcript(combined_srt_file)
+    print("Transcript file is at:", raw_srt_file)
 
 def resumed():
     # srt_folder_path = "Gurupurnima_audio_output_audio_segment_files_srt"
@@ -132,5 +135,5 @@ def resumed():
     print(raw_srt_file)
 
 if __name__ == "__main__":
-    resumed()
-    # roblox_driver()
+    # resumed()
+    roblox_driver()
