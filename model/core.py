@@ -88,7 +88,12 @@ def driver_code():
         input_audio = input("Give the audio file path:\n")
 
         #hard coded for testing
-        input_audio = "Swami_audio.m4a"
+        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_3.m4a"
+        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_4.m4a"
+        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_5.m4a"
+        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_6.m4a"
+        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_7.m4a"
+        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_8.m4a"
     
         srt_file = srt_processor.transcribe_audio_with_srt(input_audio)
         print(srt_file)

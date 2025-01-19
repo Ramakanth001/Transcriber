@@ -98,14 +98,13 @@ def process_all_audio_files_to_srt(folder_path, model_size="medium"):
 
 def roblox_driver():
     
-    print("sample path --> /mnt/e/projects/Krishna.mkv")
+    print("sample path --> /mnt/e/projects/Krishna.mp4")
     input_video = input("Give the video path:\n")
-    
-    # input_video = "/mnt/e/projects/Krishna.mkv"
+    input_video = "/mnt/e/projects/Krishna.mp4"
 
-    print("\nsample output audio --> Swami_audio.m4a")
+    print("\nsample output audio --> Swami_DJ_audio.m4a")
     output_audio_name = input("Enter output audio file name:\n")
-    
+    output_audio_name = "Swami_DJ_audio.m4a"
 
     video_to_audio(input_video, output_audio_name)
 
@@ -114,7 +113,7 @@ def roblox_driver():
 
     srt_folder_path = process_all_audio_files_to_srt(audios_folder)
 
-    combined_srt_file = "combined_srt_file.srt"
+    combined_srt_file = "DattaJayanti_combined_srt_file.srt"
     srt_sticher.stitch_srt_files(srt_folder_path, combined_srt_file)
     print(f"SRT files have been combined into {combined_srt_file}")
 
@@ -125,14 +124,18 @@ def roblox_driver():
 
 def resumed():
     # srt_folder_path = "Gurupurnima_audio_output_audio_segment_files_srt"
-    combined_srt_file = "Krishnastami-2-combined_srt_file.srt"
-    # srt_sticher.stitch_srt_files(srt_folder_path, combined_srt_file)
-    # print(f"SRT files have been combined into {combined_srt_file}")
+    combined_srt_file = "DattaJayanti_combined_srt_file.srt"
 
-    # print("All audio files processed successfully.")
-    
+    srt_folder_path = "Swami_DJ_audio_output_audio_segment_files_srt"
+
+    combined_srt_file = "DattaJayanti_combined_srt_file.srt"
+    srt_sticher.stitch_srt_files(srt_folder_path, combined_srt_file)
+    print(f"SRT files have been combined into {combined_srt_file}")
+
+    print("All audio files processed successfully.")
+
     raw_srt_file = srt_processor.srt_to_raw_transcript(combined_srt_file)
-    print(raw_srt_file)
+    print("Transcript file is at:", raw_srt_file)
 
 if __name__ == "__main__":
     # resumed()
