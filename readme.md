@@ -22,7 +22,7 @@ The **Transcriber** project includes a variety of modules, with the core functio
 
 Key functionalities include:
 - Speech-to-text (STS) conversion
-- Text-to-speech (TTS) conversion
+- Text-to-speech (TTS) conversion - in_progress
 - Video splitting (with and without compression)
 - Video-to-audio conversion
 
@@ -47,12 +47,9 @@ git clone https://github.com/Swamiseva/Transcriber.git
 
 Here’s a guide on how to use the basic functionalities of the project:
 
-### Ignore a Specific File
+### Push a Specific File
 
-To ignore a specific file from being tracked by Git:
-
-1. Add the file name to the `.gitignore` file.
-2. Commit and push your changes:
+Add the file, Commit and push your changes:
 
 ```bash
 git status
@@ -70,8 +67,10 @@ To check the whisper modules, navigate to the following directory:
 ```bash
 cd ~/.cache/whisper
 ```
-
 ---
+
+**Note:** You free to you any model size of your choice - Tiny, small, medium, large, turbo. Condider the tradeoffs of speed, accuracy and model size accordingly. By default we would be using the medium model
+
 
 ## Features
 
@@ -132,8 +131,8 @@ For accuracy comparison between original text and model output, use the [Text Co
 
 For any inquiries or issues related to the project, feel free to contact:
 
-**Swami**  
-Email: [shridattaswamiseva@gmail.com](mailto:shridattaswamiseva@gmail.com)  
+**Ramakanth**  
+Email: [ramakanthseshabhattar@gmail.com](mailto:ramakanthseshabhattar@gmail.com)  
 
 ---
 
