@@ -155,7 +155,6 @@ Thank you for exploring **Transcriber**! 🌟
 
 <div align="center">
 
-![Transcriber Logo](https://via.placeholder.com/150)  
 _A powerful tool for efficient STS and TTS conversion._
 
 </div>
