@@ -1,4 +1,4 @@
-# Transcriber - Speech-to-Text (STS) and Text-to-Speech (TTS) Work for Lord
+# Transcriber - Speech-to-Text (STS) Work for Lord
 
 **Transcriber** is a project focused on handling Speech-to-Text (STS) and Text-to-Speech (TTS) tasks with a suite of modules designed for these specific use cases. This repository aims to provide high-quality, seamless STS and TTS solutions. The main emphasis is on enabling efficient audio-visual conversions and manipulation.
 
