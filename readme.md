@@ -136,17 +136,6 @@ Email: [ramakanthseshabhattar@gmail.com](mailto:ramakanthseshabhattar@gmail.com)
 
 ---
 
-## Contributing
-
-If you'd like to contribute to this project, please follow these steps:
-
-1. Fork this repository.
-2. Create a new branch for your feature or bugfix.
-3. Make your changes and test thoroughly.
-4. Commit your changes and push your branch.
-5. Open a pull request describing your changes and why they’re needed.
-
----
 
 Thank you for exploring **Transcriber**! 🌟
 
