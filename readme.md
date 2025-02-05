@@ -92,6 +92,13 @@ Ensure that you have all the necessary dependencies installed. You can install t
 pip install -r requirements.txt
 ```
 
+If your device has Nvidia drivers and if you want GPU powered processing, integrate Transcriber with GPU using CUDA
+
+```bash
+sudo apt install nvidia-cuda-toolkit
+pip install nvidia-cuda-python
+```
+
 ### FFmpeg Installation
 
 **FFmpeg** is required for video and audio processing.
