@@ -1,4 +1,4 @@
-# Transcriber - Speech-to-Text (STS) and Text-to-Speech (TTS) Work for Lord
+# Transcriber - Speech-to-Text (STS) Work
 
 **Transcriber** is a project focused on handling Speech-to-Text (STS) and Text-to-Speech (TTS) tasks with a suite of modules designed for these specific use cases. This repository aims to provide high-quality, seamless STS and TTS solutions. The main emphasis is on enabling efficient audio-visual conversions and manipulation.
 
@@ -92,6 +92,13 @@ Ensure that you have all the necessary dependencies installed. You can install t
 pip install -r requirements.txt
 ```
 
+If your device has Nvidia drivers and if you want GPU powered processing, integrate Transcriber with GPU using CUDA
+
+```bash
+sudo apt install nvidia-cuda-toolkit
+pip install nvidia-cuda-python
+```
+
 ### FFmpeg Installation
 
 **FFmpeg** is required for video and audio processing.
@@ -136,17 +143,6 @@ Email: [ramakanthseshabhattar@gmail.com](mailto:ramakanthseshabhattar@gmail.com)
 
 ---
 
-## Contributing
-
-If you'd like to contribute to this project, please follow these steps:
-
-1. Fork this repository.
-2. Create a new branch for your feature or bugfix.
-3. Make your changes and test thoroughly.
-4. Commit your changes and push your branch.
-5. Open a pull request describing your changes and why they’re needed.
-
----
 
 Thank you for exploring **Transcriber**! 🌟
 
