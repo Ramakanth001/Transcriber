@@ -88,7 +88,8 @@ def driver_code():
         input_audio = input("Give the audio file path:\n")
 
         #hard coded for testing
-        input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_3.m4a"
+        # input_audio = "Guru.wav"
+        input_audio = "segment_1.wav"
         # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_4.m4a"
         # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_5.m4a"
         # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_6.m4a"

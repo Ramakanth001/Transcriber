@@ -1,7 +1,6 @@
 import os
 import wave
 import whisper
-from .common import format_duration
 from .common import get_audio_duration
 from datetime import timedelta
 
@@ -9,6 +8,12 @@ from datetime import timedelta
 model_size="medium"
 # model_size="large"
 
+def format_duration(seconds):
+    hours = int(seconds // 3600)
+    minutes = int((seconds % 3600) // 60)
+    secs = int(seconds % 60)
+    millis = int((seconds % 1) * 1000)  # Extract milliseconds
+    return f"{hours:02}:{minutes:02}:{secs:02},{millis:03}"  # Correct SRT format
 
 def transcribe_audio_with_srt(audio_file):
 
