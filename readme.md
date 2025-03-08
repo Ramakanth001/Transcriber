@@ -36,9 +36,9 @@ To get started with **Transcriber**, follow these steps:
 
 ```bash
 git init
-git config --global user.name "Swamiseva"
-git config --global user.email "shridattaswamiseva@gmail.com"
-git clone https://github.com/Swamiseva/Transcriber.git
+git config --global user.name "your name"
+git config --global user.email "your mail id"
+git clone https://github.com/Ramakanth001/Transcriber.git
 ```
 
 ---
