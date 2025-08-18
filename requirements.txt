@@ -9,8 +9,11 @@ ffmpeg
 #below one takes a lot of time and space to install (1.5 Gb space and around 25 mins to install)
 openai-whisper
 datasets
-transformers
 scikit-learn #50MB
 pydub
 tensorboard
 ffmpeg-python
+torch>=2.0.0
+transformers>=4.30.0
+indic-nlp-library>=0.81
+srt>=3.5.0
