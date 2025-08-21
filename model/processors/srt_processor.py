@@ -159,4 +159,100 @@ def generate_dummy_srt(audio_file, segment_duration):
     
     print(f"SRT file generated at: {srt_output_path}")
 
-#test01
+# Refactored approach
+import os
+import whisper
+from pydub import AudioSegment
+import torch
+import json
+
+model_size = "medium"  # safe for GTX 1650 (4GB VRAM)
+
+def format_duration(seconds):
+    hours = int(seconds // 3600)
+    minutes = int((seconds % 3600) // 60)
+    secs = int(seconds % 60)
+    millis = int((seconds % 1) * 1000)
+    return f"{hours:02}:{minutes:02}:{secs:02},{millis:03}"
+
+def load_model_safe(size):
+    """Load Whisper model with CUDA if available, else fallback to CPU"""
+    if torch.cuda.is_available():
+        try:
+            return whisper.load_model(size).to("cuda")
+        except RuntimeError:
+            print("⚠️ CUDA OOM, switching to CPU...")
+            return whisper.load_model(size).to("cpu")
+    else:
+        print("CUDA not available, running on CPU")
+        return whisper.load_model(size).to("cpu")
+
+def transcribe_audio_with_chunks(audio_file, chunk_length=600):  # 600s = 10 mins
+    # Load model once
+    model = load_model_safe(model_size)
+
+    # Load audio and get duration
+    audio = AudioSegment.from_file(audio_file)
+    duration = len(audio) / 1000  # in seconds
+    print(f"Audio duration: {duration/3600:.2f} hours")
+
+    # Output SRT + progress file
+    srt_file = os.path.splitext(audio_file)[0] + f"_{model_size}_merged.srt"
+    progress_file = srt_file + ".progress"
+
+    # Figure out resume state
+    start_chunk = 0
+    index = 1
+    offset = 0.0
+    if os.path.exists(progress_file):
+        with open(progress_file, "r") as pf:
+            progress = json.load(pf)
+            start_chunk = progress.get("last_chunk", 0) + 1
+            index = progress.get("last_index", 1)
+            offset = progress.get("last_offset", 0.0)
+        print(f"Resuming from chunk {start_chunk}, index {index}, offset {offset:.2f}s")
+
+    # If fresh start, clear file
+    if start_chunk == 0:
+        open(srt_file, "w", encoding="utf-8").close()
+
+    # Process chunks
+    for i in range(start_chunk * chunk_length * 1000, len(audio), chunk_length * 1000):
+        chunk_num = i // (chunk_length * 1000)
+        chunk = audio[i:i + chunk_length * 1000]
+        chunk_file = f"temp_chunk_{chunk_num}.wav"
+        chunk.export(chunk_file, format="wav")
+
+        print(f"Processing chunk {chunk_num}: {chunk_file} (offset={offset:.2f}s)")
+
+        # Transcribe chunk
+        result = model.transcribe(
+            chunk_file,
+            language="en",
+            fp16=False,
+            condition_on_previous_text=False,
+            temperature=0
+        )
+
+        with open(srt_file, "a", encoding="utf-8") as srt:
+            for seg in result["segments"]:
+                start = seg["start"] + offset
+                end = seg["end"] + offset
+                text = seg["text"].strip()
+
+                srt.write(f"{index}\n")
+                srt.write(f"{format_duration(start)} --> {format_duration(end)}\n")
+                srt.write(f"{text}\n\n")
+                index += 1
+
+        # Update offset
+        offset += chunk.duration_seconds
+
+        # Save progress
+        with open(progress_file, "w") as pf:
+            json.dump({"last_chunk": chunk_num, "last_index": index, "last_offset": offset}, pf)
+
+    print(f"SRT saved: {srt_file}")
+    print("✅ All chunks processed. You can delete the .progress file if not needed.")
+    return srt_file
+

@@ -10,7 +10,7 @@ from fine_tuning.fine_tune import fine_tune_model
 def driver_code():
     print("****************************************************************")
 
-    main_choice = int(input("Choose one of the following:\n1. Split the video\n2. Split audio\n3. Convert video to audio\n4. Convert audio to SRT and RAW files\n5. Generate Dummy SRT file as per audio\n6. Fine tune the model with custom audio and SRT\n"))
+    main_choice = int(input("Choose one of the following:\n1. Split the video\n2. Split audio\n3. Convert video to audio\n4. Convert audio to SRT and RAW files\n5. Generate Dummy SRT file as per audio\n6. Fine tune the model with custom audio and SRT\n7. New way of transcription\n"))
 
     if main_choice == 1 :
 
@@ -133,6 +133,22 @@ def driver_code():
 
         print(f"Fine-tuned model saved at: {fine_tuned_model_dir}")
 
+    if main_choice == 1 :
+
+        input_audio = input("Give the audio file path:\n")
+
+        #hard coded for testing
+        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_4.m4a"
+        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_5.m4a"
+        input_audio = "GuruPurnima_output_audio_segment_files/audio_segment_1.m4a"
+        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_7.m4a"
+        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_8.m4a"
+    
+        srt_file = srt_processor.transcribe_audio_with_srt(input_audio)
+        print(srt_file)
+
+        raw_srt_file = srt_processor.srt_to_raw_transcript(srt_file)
+        print(raw_srt_file)
 
 if __name__ == "__main__":
     driver_code()

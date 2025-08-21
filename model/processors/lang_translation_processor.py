@@ -36,7 +36,7 @@ def process_srt_file(input_file, output_file, target_lang="hi"):
 
 if __name__ == "__main__":
     # Example usage
-    input_srt = "input.srt"    # Path to your English SRT file
+    input_srt = "sample.srt"    # Path to your English SRT file
     output_srt = "output.srt"  # Output file name
     target_language = "te"     # Language code (e.g., "hi" for Hindi, "ta" for Tamil)
 
