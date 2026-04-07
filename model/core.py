@@ -49,7 +49,7 @@ def driver_code():
     if main_choice == 2 :    
         # Example usage:
         # audio_file = "/mnt/e/projects/TG-1_Full.wav"
-        audio_file = "Swami_audio.m4a"
+        audio_file = "DJ-2025.mp3"
         output_folder = f"{audio_file.split('.')[0]}_output_audio_segment_files"
         audio_duration = common.get_audio_duration(audio_file)
         print(audio_duration), type(audio_duration)
@@ -89,15 +89,11 @@ def driver_code():
 
         #hard coded for testing
         # input_audio = "Guru.wav"
-        input_audio = "segment_1.wav"
-        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_4.m4a"
-        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_5.m4a"
-        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_6.m4a"
-        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_7.m4a"
-        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_8.m4a"
-    
+        # input_audio = "segment_1.wav"
+        input_audio = "DJ-2025_output_audio_segment_files/audio_segment_8.m4a"
+
         srt_file = srt_processor.transcribe_audio_with_srt(input_audio)
-        print(srt_file)
+        print("Your SRT file is: ", srt_file)
 
         raw_srt_file = srt_processor.srt_to_raw_transcript(srt_file)
         print(raw_srt_file)
@@ -133,18 +129,18 @@ def driver_code():
 
         print(f"Fine-tuned model saved at: {fine_tuned_model_dir}")
 
-    if main_choice == 1 :
+    if main_choice == 7 :
 
         input_audio = input("Give the audio file path:\n")
 
         #hard coded for testing
         # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_4.m4a"
         # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_5.m4a"
-        input_audio = "GuruPurnima_output_audio_segment_files/audio_segment_1.m4a"
-        # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_7.m4a"
+        # input_audio = "GuruPurnima_output_audio_segment_files/audio_segment_1.m4a"
+        input_audio = "yt_audio.wav"
         # input_audio = "Swami_DJ_audio_output_audio_segment_files/audio_segment_8.m4a"
     
-        srt_file = srt_processor.transcribe_audio_with_srt(input_audio)
+        srt_file = srt_processor.transcribe_audio_with_chunks(input_audio, 900)
         print(srt_file)
 
         raw_srt_file = srt_processor.srt_to_raw_transcript(srt_file)
@@ -163,3 +159,9 @@ if __name__ == "__main__":
 
     # GOAL:
     # AI Model -> Question - relevant answer - generate speech - generate video (advanced work)
+
+
+# pip install yt-dlp
+# sudo apt install yt-dlp   # Linux
+# brew install yt-dlp       # macOS
+# yt-dlp -f bestaudio --extract-audio --audio-format wav "https://www.youtube.com/live/Sb5Dro9zCCA?si=D1ac0lSHAyYtZ5Yg"

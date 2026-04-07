@@ -17,9 +17,11 @@ def format_duration(seconds):
 
 def transcribe_audio_with_srt(audio_file):
 
+    print("Loading model..\n")
     model = whisper.load_model(model_size).to("cuda")
     # model = whisper.load_model("large").to("cuda")
-    
+
+    print("Starting transcription..\n")
     result = model.transcribe(audio_file, language="en")
 
     # result = model.transcribe(audio_file, language="en", word_timestamps=False, verbose=False)
